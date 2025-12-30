@@ -1,25 +1,34 @@
 import { nanoid } from "nanoid";
-import { URL } from "../models/url.models.js"
+import { URL as URLModel } from "../models/url.models.js"
 import { connecttomongodb } from "../connect.js"
 
+function isValidURL(string){
+  try {
+    const url = new URL(string);
+    return url.protocol=="http:" || url.protocol=="https:";
+  } catch (error) {
+    return false;
+  }
+}
+
 async function handleGenerateNewShortURL(req, res) {
-  const body = req.body;
-  if (!body.url) {
-    return res.status(404).json({ message: "Not found url" });
+  const {url} = req.body;
+  if (!url || !isValidURL(url)) {
+    return res.status(400).json({ message: "Invalid URL" });
   }
   const shortId = nanoid(8);
-  await URL.create({
+  await URLModel.create({
     shortId: shortId,
-    redirectURL: body.url,
+    redirectURL: url,
     visitHistory: []
   })
-  return res.status(200).json({ id: shortId })
+  return res.status(201).json({ id: shortId })
 }
 
 async function entryfunc(req, res) {
   try {
     const { shortId } = req.params;
-    const entry = await URL.findOneAndUpdate({
+    const entry = await URLModel.findOneAndUpdate({
       shortId
     }, {
       $push: { visitHistory: { timestamp: Date.now() } }
@@ -35,7 +44,7 @@ async function entryfunc(req, res) {
 
 async function getAnalytics(req,res){
   const {shortId} = req.params;
-  const result=await URL.findOne({shortId});
+  const result=await URLModel.findOne({shortId});
   return res.json({
     totalClicks: result.visitHistory.length,
     analytics:result.visitHistory
