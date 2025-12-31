@@ -11,12 +11,23 @@ function isValidURL(string){
   }
 }
 
+function isValidAlias(alias) {
+  return /^[a-zA-Z0-9_-]{3,30}$/.test(alias);
+}
+
+
 async function handleGenerateNewShortURL(req, res) {
   const {url} = req.body;
+  const {alias} = req.body;
   if (!url || !isValidURL(url)) {
     return res.status(400).json({ message: "Invalid URL" });
   }
-  const shortId = nanoid(8);
+  let shortId = nanoid(8);
+  if (!isValidAlias(alias)){
+    return res.status(400).json({message:"Invalid Alias"});
+  }else{
+    shortId=alias;
+  }
   await URLModel.create({
     shortId: shortId,
     redirectURL: url,
