@@ -14,6 +14,7 @@ connecttomongodb(process.env.DB).then(()=>{
 app.use("/url",router);
 app.get("/:shortId",entryfunc);
 app.get("/analytics/:shortId",getAnalytics);
+app.set("trust proxy",true) //deploy proxy
 app.listen(process.env.PORT,()=>{
   console.log(`Listening on port ${process.env.PORT}`)
 })

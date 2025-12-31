@@ -42,7 +42,10 @@ async function entryfunc(req, res) {
     const entry = await URLModel.findOneAndUpdate({
       shortId
     }, {
-      $push: { visitHistory: { timestamp: Date.now() } }
+      $push: { visitHistory: { timestamp: Date.now(),
+        ip: req.ip,
+        userAgent: req.headers["user-agent"]
+       } }
     });
     if (!entry) {
       return res.status(404).json({ message: "Id not found" });
