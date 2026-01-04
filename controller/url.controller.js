@@ -31,6 +31,7 @@ async function handleGenerateNewShortURL(req, res) {
   await URLModel.create({
     shortId: shortId,
     redirectURL: url,
+    userId: req.user.userId,
     visitHistory: []
   })
   return res.status(201).json({ id: shortId })
@@ -65,4 +66,14 @@ async function getAnalytics(req,res){
   });
 };
 
-export { handleGenerateNewShortURL, entryfunc, getAnalytics }
+async function getMyUrl(req,res) {
+  try {
+    const url=await URLModel.findOne({
+      userId:req.user.userId
+    });
+  } catch (error) {
+    return res.status(500).json({message:"Internal Server Error"});
+  }
+}
+
+export { handleGenerateNewShortURL, entryfunc, getAnalytics,getMyUrl }

@@ -6,6 +6,11 @@ const urlSchema = mongoose.Schema({
     unique: true,
     required: true
   },
+  userId:{
+    type:mongoose.Schema.Types.ObjectId,
+    ref:"users",
+    reuired:true
+  },
   redirectURL: {
     type: String,
     required: true

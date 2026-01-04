@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import {router} from "./routes/url.routes.js";
 import express from "express";
 import { entryfunc, getAnalytics } from "./controller/url.controller.js";
+import {Router} from "./routes/auth.route.js";
 
 dotenv.config();
 const app=express();
@@ -14,7 +15,8 @@ connecttomongodb(process.env.DB).then(()=>{
 app.use("/url",router);
 app.get("/:shortId",entryfunc);
 app.get("/analytics/:shortId",getAnalytics);
-app.set("trust proxy",true) //deploy proxy
+app.set("trust proxy",true); //deploy proxy
+app.use("/",Router);
 app.listen(process.env.PORT,()=>{
   console.log(`Listening on port ${process.env.PORT}`)
 })
