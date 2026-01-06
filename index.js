@@ -13,7 +13,6 @@ connecttomongodb(process.env.DB).then(()=>{
 });
 
 app.use("/url",router);
-app.get("/:shortId",entryfunc);
 app.get("/analytics/:shortId",getAnalytics);
 app.set("trust proxy",true); //deploy proxy
 app.use("/",Router);
