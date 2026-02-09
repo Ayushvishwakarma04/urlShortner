@@ -19,7 +19,15 @@ const urlSchema = mongoose.Schema({
     timestamp: { type: Number },
     ip: { type: String },
     userAgent: { type: String }
-  }]
+  }],
+  isDeleted:{
+    type:Boolean,
+    default:false
+  },
+  deletedAt:{
+    type:Date,
+    default:null
+  }
 }, { timestamps: true })
 
 export const URL = mongoose.model("urls", urlSchema);
