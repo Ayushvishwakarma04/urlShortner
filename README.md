@@ -1,5 +1,5 @@
 # URL Shortener API
-[![Ayush Vishwakarma](https://camo.githubusercontent.com/d2fe44eb84723b4b9b714760a76dcf50c25e3eb03a170db70aba4dfa60d48792/68747470733a2f2f692e6962622e636f2f387a504a7058382f4c6f676f2d72656d6f766562672d707265766965772e706e67)]
+![Ayush Vishwakarma](https://camo.githubusercontent.com/d2fe44eb84723b4b9b714760a76dcf50c25e3eb03a170db70aba4dfa60d48792/68747470733a2f2f692e6962622e636f2f387a504a7058382f4c6f676f2d72656d6f766562672d707265766965772e706e67)
 
 This is a robust and feature-rich URL shortener service built with Node.js, Express, and MongoDB. It provides a simple API for creating, managing, and tracking shortened URLs. Key features include user authentication, custom aliases, QR code generation, and detailed analytics.
 
